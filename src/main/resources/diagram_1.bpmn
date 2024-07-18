@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0wi99mn" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.21.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.20.0">
+  <bpmn:collaboration id="leave_manager">
+    <bpmn:participant id="Participant_0gmha1m" processRef="Process_1" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_1f1ia31">
+      <bpmn:lane id="Lane_0bke3zo" name="Manager">
+        <bpmn:flowNodeRef>Activity_0pt3w5n</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0pgwjx7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_17wogde</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1751nb4" name="Employee">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1igfrx8</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_1juiuva</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0b1fldh</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_1" name="Employee wants to take leave">
+      <bpmn:outgoing>Flow_1dpvfjf</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_1igfrx8" name="Apply for leave">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="start_date" label="Start date" type="date" />
+          <camunda:formField id="end_date" label="End date" type="date">
+            <camunda:validation />
+          </camunda:formField>
+          <camunda:formField id="leave_type" label="Leave type" type="enum">
+            <camunda:value id="sick_leave" name="sick leave" />
+            <camunda:value id="vacation" name="vacation" />
+          </camunda:formField>
+          <camunda:formField id="reason_for_leave" label="Reason for Leave" type="string" />
+          <camunda:formField id="email" label="Email" type="string">
+            <camunda:properties />
+            <camunda:validation />
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1dpvfjf</bpmn:incoming>
+      <bpmn:outgoing>Flow_0wlslu2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_1juiuva" name="Process finished">
+      <bpmn:incoming>Flow_1syje6l</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="Activity_0pt3w5n" name="Inform employee">
+      <bpmn:incoming>Flow_186l8iu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0bckh9j</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0b1fldh" name="receive information">
+      <bpmn:incoming>Flow_0bckh9j</bpmn:incoming>
+      <bpmn:outgoing>Flow_1syje6l</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:userTask id="Activity_0pgwjx7" name="review leave application">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="accept_leave" label="Accept leave ?" type="boolean" />
+          <camunda:formField id="reason_for_leave" label="Reason for leave" type="string" />
+          <camunda:formField id="leave_type" label="Leave type" type="string" />
+          <camunda:formField id="start_date" label="Start date" type="date" />
+          <camunda:formField id="end_date" label="End date" type="date" />
+          <camunda:formField id="email" label="Email" type="string" />
+          <camunda:formField id="leave_balance" label="Leave balance" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_13ivgvj</bpmn:incoming>
+      <bpmn:outgoing>Flow_186l8iu</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Activity_17wogde" name="Check leave balance" camunda:class="de.cimt.CheckLeaveBalance">
+      <bpmn:incoming>Flow_0wlslu2</bpmn:incoming>
+      <bpmn:outgoing>Flow_13ivgvj</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1dpvfjf" sourceRef="StartEvent_1" targetRef="Activity_1igfrx8" />
+    <bpmn:sequenceFlow id="Flow_0wlslu2" sourceRef="Activity_1igfrx8" targetRef="Activity_17wogde" />
+    <bpmn:sequenceFlow id="Flow_1syje6l" sourceRef="Activity_0b1fldh" targetRef="Event_1juiuva" />
+    <bpmn:sequenceFlow id="Flow_186l8iu" sourceRef="Activity_0pgwjx7" targetRef="Activity_0pt3w5n" />
+    <bpmn:sequenceFlow id="Flow_0bckh9j" sourceRef="Activity_0pt3w5n" targetRef="Activity_0b1fldh" />
+    <bpmn:sequenceFlow id="Flow_13ivgvj" sourceRef="Activity_17wogde" targetRef="Activity_0pgwjx7" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="leave_manager">
+      <bpmndi:BPMNShape id="Participant_0gmha1m_di" bpmnElement="Participant_0gmha1m" isHorizontal="true">
+        <dc:Bounds x="186" y="78" width="838" height="513" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0bke3zo_di" bpmnElement="Lane_0bke3zo" isHorizontal="true">
+        <dc:Bounds x="216" y="78" width="808" height="250" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1751nb4_di" bpmnElement="Lane_1751nb4" isHorizontal="true">
+        <dc:Bounds x="216" y="328" width="808" height="263" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="250" y="363" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="227" y="406" width="82" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1f228di_di" bpmnElement="Activity_1igfrx8">
+        <dc:Bounds x="358" y="341" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1juiuva_di" bpmnElement="Event_1juiuva">
+        <dc:Bounds x="898" y="363" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="876" y="406" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_065zdgl_di" bpmnElement="Activity_0pt3w5n">
+        <dc:Bounds x="716" y="111" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_107yd9l_di" bpmnElement="Activity_0b1fldh">
+        <dc:Bounds x="746" y="341" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0chxdvz_di" bpmnElement="Activity_0pgwjx7">
+        <dc:Bounds x="570" y="171" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0qzdjp0_di" bpmnElement="Activity_17wogde">
+        <dc:Bounds x="420" y="171" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1dpvfjf_di" bpmnElement="Flow_1dpvfjf">
+        <di:waypoint x="286" y="381" />
+        <di:waypoint x="358" y="381" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wlslu2_di" bpmnElement="Flow_0wlslu2">
+        <di:waypoint x="408" y="341" />
+        <di:waypoint x="408" y="291" />
+        <di:waypoint x="450" y="291" />
+        <di:waypoint x="450" y="251" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1syje6l_di" bpmnElement="Flow_1syje6l">
+        <di:waypoint x="846" y="381" />
+        <di:waypoint x="898" y="381" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_186l8iu_di" bpmnElement="Flow_186l8iu">
+        <di:waypoint x="620" y="171" />
+        <di:waypoint x="620" y="151" />
+        <di:waypoint x="716" y="151" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bckh9j_di" bpmnElement="Flow_0bckh9j">
+        <di:waypoint x="766" y="191" />
+        <di:waypoint x="766" y="266" />
+        <di:waypoint x="796" y="266" />
+        <di:waypoint x="796" y="341" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13ivgvj_di" bpmnElement="Flow_13ivgvj">
+        <di:waypoint x="520" y="211" />
+        <di:waypoint x="570" y="211" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

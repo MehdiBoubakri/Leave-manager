@@ -1,0 +1,35 @@
+{
+  "components": [
+    {
+      "label": "name",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_02zqd0l",
+        "columns": null
+      },
+      "id": "Field_06cwqqp",
+      "key": "textarea_4bgcx7",
+      "description": "name"
+    },
+    {
+      "label": "age",
+      "type": "number",
+      "layout": {
+        "row": "Row_014dxrx",
+        "columns": null
+      },
+      "id": "Field_0tncobq",
+      "key": "number_bn6dxf",
+      "description": "age"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0sd57sh",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.21.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.20.0",
+  "schemaVersion": 15
+}
