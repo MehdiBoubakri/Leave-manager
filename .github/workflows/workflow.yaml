@@ -13,7 +13,7 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v6.4
         with:
           image: mehdi127/leave-manager
-          registry: hub.docker.com
+          registry: docker.io
           tags: latest
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
