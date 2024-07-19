@@ -1,0 +1,19 @@
+name: Build and Push Docker Image
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4.1.7 # Clone the repository code
+
+      - name: Build Docker image
+        uses: mr-smithers-excellent/docker-build-push@v6.4
+        with:
+          push: true
+          image: mehdi127/leave-manager
+          tags: latest
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
