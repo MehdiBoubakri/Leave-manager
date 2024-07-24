@@ -8,12 +8,23 @@ spring:
   sql:
     init:
       mode: always
-camunda.bpm.admin-user:
-  id: demo
-  password: demo
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: <your gmail account>
+    password: <your gmail app password>
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 camunda:
   bpm:
+    admin-user:
+      id: demo
+      password: demo
     generic-properties:
       properties:
         enforceHistoryTimeToLive: false

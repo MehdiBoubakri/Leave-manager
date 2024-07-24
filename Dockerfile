@@ -7,7 +7,7 @@ COPY ./src  ./src/
 COPY ./pom.xml .
 
 # Install dependencies using Maven
-RUN mvn clean install -DskipTests
+RUN mvn clean install 
 
 # Create a non-root user for improved security
 FROM openjdk:17-jdk-alpine

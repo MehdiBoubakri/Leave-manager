@@ -6,9 +6,9 @@
   <bpmn:process id="Process_1" isExecutable="true">
     <bpmn:laneSet id="LaneSet_1f1ia31">
       <bpmn:lane id="Lane_0bke3zo" name="Manager">
-        <bpmn:flowNodeRef>Activity_0pt3w5n</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0pgwjx7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_17wogde</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0pt3w5n</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_1751nb4" name="Employee">
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
@@ -44,10 +44,6 @@
     <bpmn:endEvent id="Event_1juiuva" name="Process finished">
       <bpmn:incoming>Flow_1syje6l</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:task id="Activity_0pt3w5n" name="Inform employee">
-      <bpmn:incoming>Flow_186l8iu</bpmn:incoming>
-      <bpmn:outgoing>Flow_0bckh9j</bpmn:outgoing>
-    </bpmn:task>
     <bpmn:task id="Activity_0b1fldh" name="receive information">
       <bpmn:incoming>Flow_0bckh9j</bpmn:incoming>
       <bpmn:outgoing>Flow_1syje6l</bpmn:outgoing>
@@ -67,7 +63,7 @@
       <bpmn:incoming>Flow_13ivgvj</bpmn:incoming>
       <bpmn:outgoing>Flow_186l8iu</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="Activity_17wogde" name="Check leave balance" camunda:class="de.cimt.CheckLeaveBalance">
+    <bpmn:serviceTask id="Activity_17wogde" name="Check leave balance" camunda:class="de.cimt.service.CheckLeaveBalance">
       <bpmn:incoming>Flow_0wlslu2</bpmn:incoming>
       <bpmn:outgoing>Flow_13ivgvj</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -77,18 +73,22 @@
     <bpmn:sequenceFlow id="Flow_186l8iu" sourceRef="Activity_0pgwjx7" targetRef="Activity_0pt3w5n" />
     <bpmn:sequenceFlow id="Flow_0bckh9j" sourceRef="Activity_0pt3w5n" targetRef="Activity_0b1fldh" />
     <bpmn:sequenceFlow id="Flow_13ivgvj" sourceRef="Activity_17wogde" targetRef="Activity_0pgwjx7" />
+    <bpmn:serviceTask id="Activity_0pt3w5n" name="Inform employee" camunda:class="de.cimt.service.InformEmployee">
+      <bpmn:incoming>Flow_186l8iu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0bckh9j</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="leave_manager">
       <bpmndi:BPMNShape id="Participant_0gmha1m_di" bpmnElement="Participant_0gmha1m" isHorizontal="true">
         <dc:Bounds x="186" y="78" width="838" height="513" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Lane_0bke3zo_di" bpmnElement="Lane_0bke3zo" isHorizontal="true">
-        <dc:Bounds x="216" y="78" width="808" height="250" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1751nb4_di" bpmnElement="Lane_1751nb4" isHorizontal="true">
         <dc:Bounds x="216" y="328" width="808" height="263" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0bke3zo_di" bpmnElement="Lane_0bke3zo" isHorizontal="true">
+        <dc:Bounds x="216" y="78" width="808" height="250" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
@@ -107,9 +107,6 @@
           <dc:Bounds x="876" y="406" width="81" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_065zdgl_di" bpmnElement="Activity_0pt3w5n">
-        <dc:Bounds x="716" y="111" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_107yd9l_di" bpmnElement="Activity_0b1fldh">
         <dc:Bounds x="746" y="341" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -120,6 +117,9 @@
       <bpmndi:BPMNShape id="Activity_0qzdjp0_di" bpmnElement="Activity_17wogde">
         <dc:Bounds x="420" y="171" width="100" height="80" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vovp34_di" bpmnElement="Activity_0pt3w5n">
+        <dc:Bounds x="716" y="111" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1dpvfjf_di" bpmnElement="Flow_1dpvfjf">
         <di:waypoint x="286" y="381" />
