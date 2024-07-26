@@ -12,7 +12,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CheckLeaveBalance implements JavaDelegate {
+
     private final EmployeeRepository employeeRepository;
+
     @Override
     public void execute(DelegateExecution execution) throws Exception {
 

@@ -9,7 +9,7 @@ resource "aws_security_group" "allow_ssh_and_web" {
     from_port = 22
     to_port   = 22
     protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Allow SSH from all IPs (not recommended)
+    cidr_blocks = ["3.120.181.40/29"] # Allow authorize port 22 for the EC2 Instance Connect service IP addresses in eu-central-1
   }
 
   ingress {
